@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CA2 Student Form</title>
+</head>
+<style>
+  .Container{display:flex;}
+  .Student{
+    left:0%;
+    border: solid 1px;
+  }
+  .details{
+   right:0%;
+   border:solid 1px;
+   
+  }
+  li:hover{
+    background-color: aqua;
+  }
+  .genderImg{right: 0%;
+    border:solid 1px;
+    margin-left: 100px;
+  }
+</style>
+
+<body>
+<h1>CA2 Student Form</h1>
+<div class="Container">
+<div class ="Student">
+<p><label>First Name:</label> <input id="FName"></input><span id="fnameErr"></span></p>
+
+<p><label>Last Name:</label><input id="LName"> </input><span id="LnameErr"></span></p>
+
+<p><label> CAO Number:</label><input id="CaoNo"></input><span id="numErr"></span></p>
+
+<p><label>Email:</label> <input id="email" type="email"><span id="emErr"></span></p>
+
+</p><label>Date of Birth: </label><input id ="dob" type= "date"></p>
+<div id= "radio">
+BSc<input type="radio" id="BSc" name="course" >
+Applied<input type="radio"  id="Applied" name="course">
+Games<input id="Games" type="radio" name="course" >
+</div>
+<label>Gender:</label>
+<select name="Gender" id="Gender">
+<option value="m">Male</option>
+<option value="f">Female</option>
+<option value="?">Other</option>
+</select>
+<p><input type="checkbox" id = "Terms">I agree to the terms and conditions</p><span id="termsError"></span>
+<button id="Submit" ><submit id = "submit">Submit</submit></button></div>
+<div class ="details">
+<ul name='college'>
+    <li class="highLight">BSc Computing</li>
+    <ol id='bsc'>
+    <li>(L00012345) Black, Mary [f]</li>
+    </ol>
+     <li>Applied Computing</li>
+    <ol id='applied'>
+     <li>(L00012345) Green, Gerard [m]</li>
+    <li>(L00012345) Orange, Charlie [?]</li>
+    <span id = "appliedAdd"></span>
+    </ol>
+     <li>Games Programming</li>
+    <ol id='games'>
+    <li>(L00012345) Red, Sue [f]</li>
+     <li>(L00012345) Purple, Dave [?]</li>
+    <span id="gamesAdd"></span>
+    </ol>
+     </ul>
+     
+    </div>
+    <div id="genderImg"></div>
+    </div>
+</body>
+<footer></footer>
+<script src = "script.js" defer ></script>
+</html>
