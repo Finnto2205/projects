@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src=" https://cdn.jsdelivr.net/npm/mustache@4.2.0/mustache.min.js"></script>
+</head>
+<style>
+    .Container{display:flex;}
+    h1{ color: red}
+    table,tr,td {
+          border:1px solid black;
+          
+          
+        }
+    #NavForm
+    {
+    border:1px solid black;
+    float:left;
+   
+    
+    }
+    #AddMovie
+    {
+    border:1px solid black; 
+    float:right;
+    
+    
+    }
+    button{background-color: blue;
+            color: white;}
+</style>    
+<body>
+    <h1>Female Oscar Winners </h1>
+    <div class="Container">
+    
+    <div id = NavForm>
+    <h2>Naviagtion Form</h2>
+    <p><label>MovieID</label> <input id=""></input><span id=""></span></p>
+    <p><label>Name</label> <input id=""></input><span id=""></span></p>
+    <p><label>Movie</label> <input id=""></input><span id=""></span></p>
+    <p><label>Age</label> <input id=""></input><span id=""></span></p>
+    <p><label>Year</label> <input id=""></input><span id=""></span></p>
+    <button id="previous" ><submit id = "Previous">Previous</submit></button> <button id="Next" ><submit id = "next">Next</submit></button>
+    
+</div>
+<div id = AddMovie>
+    <h2>Add Movie Form</h2>
+    <p><label>MovieID</label> <input id="movieID"></input><span id="idErr"></span></p>
+    <p><label>Name</label> <input id="name"></input><span id="nameErr"></span></p>
+    <p><label>Movie</label> <input id="movie"></input><span id="movieErr"></span></p>
+    <p><label>Age</label> <input id="age"></input><span id="ageErr"></span></p>
+    <p><label>Year</label> <input id="year"></input><span id="yearErr"></span></p>
+    <button id="Submit" ><submit id = "submit">Submit</submit></button>
+</div>
+</div>
+<table></table>
+<table id="newTable" ></table>
+
+<script>
+    window.onload = init;
+    let winners = { females:  [ 
+    {
+      "Index": 1,
+      "Year": 2010,
+      "Age": 45,
+      "Name": "Sandra Bullock",
+      "Movie": "The Blind Side"
+    },
+    {
+      "Index": 2,
+      "Year": 2011,
+      "Age": 29,
+      "Name": "Natalie Portman",
+      "Movie": "Black Swan"
+    },
+    {
+      "Index": 3,
+      "Year": 2012,
+      "Age": 62,
+      "Name": "Meryl Streep",
+      "Movie": "The Iron Lady"
+    },
+    {
+      "Index": 4,
+      "Year": 2013,
+      "Age": 22,
+      "Name": "Jennifer Lawrence",
+      "Movie": "Silver Linings Playbook"
+    },
+    {
+      "Index": 5,
+      "Year": 2014,
+      "Age": 44,
+      "Name": "Cate Blanchett",
+      "Movie": "Blue Jasmine"
+    },
+    {
+      "Index": 6,
+      "Year": 2015,
+      "Age": 7,
+      "Name": "Julianne Moore",
+      "Movie": "Still Alice"
+    },
+    {
+      "Index": 7,
+      "Year": 2016,
+      "Age": 26,
+      "Name": "Brie Larson",
+      "Movie": "Room"
+    }
+   ]}
+   template = "<tr>{{#females}}<h4><td>{{Index}}</td> <td>{{Name}}</td><td>{{Movie}}</td><td>{{Year}}</td></h4></tr>{{/females}}"
+        let output = Mustache.render(template, winners)
+    
+        document.querySelector('table').innerHTML = output
+
+        newTemplate = "<tr><h4><td>{{Index}}</td> <td>{{Name}}</td><td>{{Movie}}</td><td>{{Year}}</td></h4></tr>"
+        function addWinner() {
+      let added=  Mustache.render(newTemplate, newWinner)
+        document.getElementById('newTable').innerHTML = added
+    }
+
+    let newWinner = {
+    "Index": document.getElementById("movieID").value,
+    "Year": document.getElementById("year").value,
+    "Age": document.getElementById("age").value,
+    "Name": document.getElementById("name").value,
+    "Movie":document.getElementById("movie").value,
+    }
+    document.getElementById("submit").addEventListener('click', submitButton);
+    function submitButton(){
+        handleID();
+        handleName();
+        handleMovie();
+        handleAge();
+        handleYear();
+        addWinner(newWinner);
+    }
+    function init(params) {
+  document.getElementById("movieID").addEventListener('blur', handleID);
+  document.getElementById("movieID").addEventListener('focus', function() {
+          console.log("The movie ID has got the focus");
+          document.getElementById('idErr').innerHTML = "";
+        
+      });
+      document.getElementById("name").addEventListener('blur', handleID);
+  document.getElementById("name").addEventListener('focus', function() {
+          console.log("The name has got the focus");
+          document.getElementById('nameErr').innerHTML = "";
+        
+      });
+      document.getElementById("movie").addEventListener('blur', handleName);
+  document.getElementById("movie").addEventListener('focus', function() {
+          console.log("The movie has got the focus");
+          document.getElementById('movieErr').innerHTML = "";
+        
+      });
+      document.getElementById("age").addEventListener('blur', handleAge);
+  document.getElementById("age").addEventListener('focus', function() {
+          console.log("The age has got the focus");
+          document.getElementById('ageErr').innerHTML = "";
+        
+      });
+      document.getElementById("year").addEventListener('blur', handleYear);
+  document.getElementById("year").addEventListener('focus', function() {
+          console.log("The year has got the focus");
+          document.getElementById('yearErr').innerHTML = "";
+        
+      });
+    }
+
+    function handleID(){
+      let id = document.getElementById("movieID").value;
+        console.log("The ID was " + id +":");
+        if(id == ""){
+          document.getElementById('idErr').innerHTML = "ID needs a number"
+        }
+        return;
+    }
+    function handleName(){
+      let name = document.getElementById("name").value;
+        console.log("The name was " + name +":");
+        if(name.length <=3|| name.length > 25){
+          document.getElementById('nameErr').innerHTML = "Name has to be between 2 and 25 characters"
+        }
+        return;
+        //alert('Ok blur event' + first.value)
+      }
+      function handleMovie(){
+      let movieName = document.getElementById("movie").value;
+        console.log("The movie name was " + movieName +":");
+        if(movieName.length <=3|| movieName.length > 25){
+          document.getElementById('movieErr').innerHTML = "Name has to be between 2 and 25 characters"
+        }
+        return;
+        //alert('Ok blur event' + first.value)
+      }
+      function handleAge(){
+        let actorAge = document.getElementById("age").value;
+        console.log("The number was " + actorAge +":");
+        if(actorAge < 0 || actorAge > 100){
+          document.getElementById('ageErr').innerHTML = "Invalid Age"
+        }
+        //alert('Ok blur event' + num.value)
+      }
+      function handleYear(){
+        let yearOut = document.getElementById("year").value;
+        console.log("The year was " + yearOut +":");
+        if(yearOut < 1900 || yearOut > 2024){
+          document.getElementById('yearErr').innerHTML = "Invalid Year"
+        }
+      }
+    
+
+</script>
+</body>
+</html>
